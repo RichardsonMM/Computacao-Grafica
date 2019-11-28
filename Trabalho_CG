@@ -40,10 +40,12 @@ using namespace std;
 #define LAR_HELP        600
 #define ALT_HELP        225
 
-#define NUM_TEX         3
+#define NUM_TEX         5
 #define TEXTURA0        1000
 #define TEXTURA1        1001
 #define TEXTURA2        1002
+#define TEXTURA3        1003
+#define TEXTURA4        1004
 
 // prototipagem
 //void especifica_parametros_visualizacao( void );
@@ -193,15 +195,23 @@ void Texturizacao() //faz o carregamento
 
     texture_id[ 0 ] = TEXTURA0; // define um numero (identificacao) para a textura
     glBindTexture ( GL_TEXTURE_2D, texture_id[0] );//armazena na posicao 0 do vetor
-    LoadBMP ( "bolas.bmp" ); // le a textura
+    LoadBMP ( "chao.bmp" ); // le a textura
 
     texture_id[ 1 ] = TEXTURA1;
     glBindTexture ( GL_TEXTURE_2D, texture_id[1] );
-    LoadBMP ( "girassol.bmp" );
+    LoadBMP ( "parede.bmp" );
 
     texture_id[ 2 ] = TEXTURA2;
     glBindTexture ( GL_TEXTURE_2D, texture_id[2] );
-    LoadBMP ( "inter.bmp" );
+    LoadBMP ( "quadro.bmp" );
+
+    texture_id[ 3 ] = TEXTURA3;
+    glBindTexture ( GL_TEXTURE_2D, texture_id[3] );
+    LoadBMP ( "roof.bmp" );
+
+    texture_id[ 4 ] = TEXTURA4;
+    glBindTexture ( GL_TEXTURE_2D, texture_id[4] );
+    LoadBMP ( "table.bmp" );
 
     glTexGeni( GL_S , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
     glTexGeni( GL_T , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
@@ -490,7 +500,7 @@ void define_iluminacao( void )
     glMateriali( GL_FRONT , GL_SHININESS , espec_material );
 
     // ativa o uso da luz ambiente - caso a luz 0 seja desligada
-    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , ambiente );
+   // glLightModelfv( GL_LIGHT_MODEL_AMBIENT , ambiente );
 
     // define os parametros da fonte de luz numero 0
     glLightfv( GL_LIGHT0 , GL_AMBIENT  , ambiente );
@@ -539,6 +549,7 @@ void desenha(void)
 
     // Limpa a janela de visualizao com a cor de fundo especificada
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+    glEnable(GL_TEXTURE_2D);
 
     // seleciona o tipo de matriz para a visualizacao dos objetos (modelos)
     glMatrixMode(GL_MODELVIEW);
@@ -555,8 +566,6 @@ void desenha(void)
 
     glColor4f( 1.0 , 1.0 , 0.0 , 1.0 );
 
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, TEXTURA2);
 
     glPushMatrix();
     //BASE ==============================================================
@@ -949,52 +958,157 @@ void desenha(void)
     // ============================================================
     glPopMatrix();
 
+
+
     // cenario
 
-    glColor3d(0.0, 1.0, 0.0);
+    glColor3d(1.0, 1.0, 1.0);
     glPushMatrix();
 
-    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, TEXTURA0);
+    glBegin(GL_POLYGON);
+        glTexCoord2f(1.0f, 1.0f);
+        glVertex3f(900, -900, -900);
+
+        glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(-900, -900, -900);
+
+        glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(-900, -900, 900);
+
+        glTexCoord2f(1.0f, 0.0f);
+        glVertex3f(900, -900, 900);
+    glEnd();
 
     glBindTexture(GL_TEXTURE_2D, TEXTURA2);
-
     glBegin(GL_POLYGON);
-        glVertex3f(500, -500, -500);
-        glVertex3f(-500, -500, -500);
-        glVertex3f(-500, -500, 500);
-        glVertex3f(500, -500, 500);
+        glTexCoord2f(1.0f, 1.0f);
+        glVertex3f(900, 900, -900);
+
+        glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(-900, 900, -900);
+
+        glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(-900, -900, -900);
+
+        glTexCoord2f(1.0f, 0.0f);
+        glVertex3f(900, -900, -900);
+    glEnd();
+
+    glBindTexture(GL_TEXTURE_2D, TEXTURA1);
+    glBegin(GL_POLYGON);
+        glTexCoord2f(1.0f, 1.0f);
+        glVertex3f(-900, 900, 900);
+
+        glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(-900, 900, -900);
+
+        glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(-900, -900, -900);
+
+        glTexCoord2f(1.0f, 0.0f);
+        glVertex3f(-900, -900, 900);
     glEnd();
 
     glBegin(GL_POLYGON);
-        glVertex3f(500, 500, -500);
-        glVertex3f(-500, 500, -500);
-        glVertex3f(-500, -500, -500);
-        glVertex3f(500, -500, -500);
+        glTexCoord2f(1.0f, 1.0f);
+        glVertex3f(900, 900, -900);
+
+        glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(900, 900, 900);
+
+        glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(900, -900, 900);
+
+        glTexCoord2f(1.0f, 0.0f);
+        glVertex3f(900, -900, -900);
     glEnd();
 
+    glBindTexture(GL_TEXTURE_2D, TEXTURA3);
     glBegin(GL_POLYGON);
-        glVertex3f(-500, 500, 500);
-        glVertex3f(-500, 500, -500);
-        glVertex3f(-500, -500, -500);
-        glVertex3f(-500, -500, 500);
-    glEnd();
+        glTexCoord2f(1.0f, 1.0f);
+        glVertex3f(900, 900, -900);
 
-    glBegin(GL_POLYGON);
-        glVertex3f(500, 500, -500);
-        glVertex3f(500, 500, 500);
-        glVertex3f(500, -500, 500);
-        glVertex3f(500, -500, -500);
-    glEnd();
+        glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(-900, 900, -900);
 
-    glBegin(GL_POLYGON);
-        glVertex3f(500, 500, -500);
-        glVertex3f(-500, 500, -500);
-        glVertex3f(-500, 500, 500);
-        glVertex3f(500, 500, 500);
+        glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(-900, 900, 900);
+
+        glTexCoord2f(1.0f, 0.0f);
+        glVertex3f(900, 900, 900);
     glEnd();
 
     glPopMatrix();
-    //cenario
+    //fim cenario
+
+    // começo mesa
+    glPushMatrix();
+
+    glColor3f(0.5, 0.5, 0.5);
+
+    glBindTexture(GL_TEXTURE_2D, TEXTURA4);
+
+    glBegin(GL_POLYGON);
+        glTexCoord2d(1.0, 1.0);
+        glVertex3f(200, -54, -200);
+        glTexCoord2d(0.0, 1.0);
+        glVertex3f(-200, -54, -200);
+        glTexCoord2d(0.0, 0.0);
+        glVertex3f(-200, -54, 200);
+        glTexCoord2d(1.0, 0.0);
+        glVertex3f(200, -54, 200);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        glTexCoord2d(1.0, 1.0);
+        glVertex3f(200, -54, 200);
+
+        glTexCoord2d(0.0, 1.0);
+        glVertex3f(-200, -54, 200);
+
+        glTexCoord2d(0.0, 0.0);
+        glVertex3f(-200, -899, 200);
+
+        glTexCoord2d(1.0, 0.0);
+        glVertex3f(200, -899, 200);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        glTexCoord2d(1.0, 1.0);
+        glVertex3f(-200, -54, 200);
+        glTexCoord2d(0.0, 1.0);
+        glVertex3f(-200, -54, -200);
+        glTexCoord2d(0.0, 0.0);
+        glVertex3f(-200, -899, -200);
+        glTexCoord2d(1.0, 0.0);
+        glVertex3f(-200, -899, 200);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        glTexCoord2d(1.0, 1.0);
+        glVertex3f(200, -54, -200);
+        glTexCoord2d(0.0, 1.0);
+        glVertex3f(200, -54, 200);
+        glTexCoord2d(0.0, 0.0);
+        glVertex3f(200, -899, 200);
+        glTexCoord2d(1.0, 0.0);
+        glVertex3f(200, -899, -200);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        glTexCoord2d(1.0, 1.0);
+        glVertex3f(-200, -54, -200);
+        glTexCoord2d(0.0, 1.0);
+        glVertex3f(200, -54, -200);
+        glTexCoord2d(0.0, 0.0);
+        glVertex3f(200, -899, -200);
+        glTexCoord2d(1.0, 0.0);
+        glVertex3f(-200, -899, -200);
+    glEnd();
+
+    glPopMatrix();
+    // fim mesa
 
     glPopMatrix();
     glPopMatrix();
