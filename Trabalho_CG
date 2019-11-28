@@ -201,7 +201,7 @@ void Texturizacao() //faz o carregamento
 
     texture_id[ 2 ] = TEXTURA2;
     glBindTexture ( GL_TEXTURE_2D, texture_id[2] );
-    LoadBMP ( "horizontal.bmp" );
+    LoadBMP ( "inter.bmp" );
 
     glTexGeni( GL_S , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
     glTexGeni( GL_T , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
@@ -555,6 +555,8 @@ void desenha(void)
 
     glColor4f( 1.0 , 1.0 , 0.0 , 1.0 );
 
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, TEXTURA2);
 
     glPushMatrix();
     //BASE ==============================================================
@@ -957,16 +959,9 @@ void desenha(void)
     glBindTexture(GL_TEXTURE_2D, TEXTURA2);
 
     glBegin(GL_POLYGON);
-        glTexCoord2f(1.0, 1.0f);
         glVertex3f(500, -500, -500);
-
-        glTexCoord2f(0.0, 1.0f);
         glVertex3f(-500, -500, -500);
-
-        glTexCoord2f(0.0, 0.0f);
         glVertex3f(-500, -500, 500);
-
-        glTexCoord2f(1.0, 0.0f);
         glVertex3f(500, -500, 500);
     glEnd();
 
@@ -982,6 +977,20 @@ void desenha(void)
         glVertex3f(-500, 500, -500);
         glVertex3f(-500, -500, -500);
         glVertex3f(-500, -500, 500);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        glVertex3f(500, 500, -500);
+        glVertex3f(500, 500, 500);
+        glVertex3f(500, -500, 500);
+        glVertex3f(500, -500, -500);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+        glVertex3f(500, 500, -500);
+        glVertex3f(-500, 500, -500);
+        glVertex3f(-500, 500, 500);
+        glVertex3f(500, 500, 500);
     glEnd();
 
     glPopMatrix();
@@ -1030,7 +1039,7 @@ void inicializa( void )
 
     transformacao = 'T';
     eixo = 'X';
-    tonalizacao = 'F';
+    tonalizacao = 'S';
     primitiva = 0;
 
     wireframe = false;
@@ -1382,7 +1391,7 @@ int main( int argc , char *argv[] )
     glutInitWindowSize( LAR_MAIN , ALT_MAIN );
     glutInitWindowPosition( ( glutGet( GLUT_SCREEN_WIDTH  ) - LAR_MAIN ) / 2 ,
                            ( glutGet( GLUT_SCREEN_HEIGHT ) - ALT_MAIN  ) / 2 );
-    jan[ 2 ] = glutCreateWindow( "ILUMINACAO" );
+    jan[ 2 ] = glutCreateWindow( "BALANÇA" );
 
     // callbacks da janela de help
     glutSetWindow( jan[ 0 ] );
